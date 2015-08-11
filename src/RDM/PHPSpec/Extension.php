@@ -3,6 +3,7 @@
 namespace RDM\PHPSpec;
 
 use PhpSpec\ServiceContainer;
+use ExtensionInterface;
 
 class Extension implements ExtensionInterface {
 
