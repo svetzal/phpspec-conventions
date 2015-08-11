@@ -2,8 +2,8 @@
 
 namespace RDM\PHPSpec;
 
-use PhpSpec\ServiceContainer;
-use RDM\PHPSpec\ExtensionInterface;
+use \PhpSpec\ServiceContainer;
+use \PhpSpec\Extension\ExtensionInterface;
 
 class Extension implements ExtensionInterface {
 
