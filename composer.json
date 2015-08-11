@@ -1,5 +1,5 @@
 {
-  "name": "rci/phpspec-conventions",
+  "name": "rdm/phpspec-conventions",
   "description": "PHPSpec extension to locate files correctly using conventions",
   "minimum-stability": "beta",
   "license": "MIT",

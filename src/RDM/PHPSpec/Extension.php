@@ -1,5 +1,7 @@
 <?php
 
+namespace RDM\PHPSpec;
+
 use PhpSpec\ServiceContainer;
 
 class Extension implements ExtensionInterface {

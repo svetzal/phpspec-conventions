@@ -1,5 +1,7 @@
 <?php
 
+namespace RDM\PHPSpec;
+
 use PhpSpec\ServiceContainer;
 
 interface Assembler {
