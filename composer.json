@@ -16,8 +16,6 @@
     "bin-dir": "bin"
   },
   "autoload": {
-    "psr-4": {
-      "RDM\\": "src/RDM"
-    }
+    "psr-4": { "": "src/" }
   }
 }

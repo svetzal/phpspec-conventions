@@ -6,53 +6,56 @@ use PhpSpec\Locator\ResourceInterface;
 
 class SimpleResource implements ResourceInterface {
 
-    private $name, $srcFilename, $srcClassname;
-    private $specName, $specFilename, $specClassname;
+    private $name, $srcFilename;
 
     public function __construct($path) {
         $this->srcFilename = $path;
-    }
+        $matches = array();
+        preg_match("/^(\\w+)(.+)$/", $path, $matches);
+        $this->name = $matches[1];
+        $this->fileSuffix = $matches[2];
+     }
 
     /**
      * @return string
      */
     public function getName() {
-         // TODO: Implement getName() method.
+        return $this->name;
     }
 
     /**
      * @return string
      */
     public function getSpecName() {
-        // TODO: Implement getSpecName() method.
+        return $this->name . "Spec";
     }
 
     /**
      * @return string
      */
     public function getSrcFilename() {
-        // TODO: Implement getSrcFilename() method.
+        return $this->srcFilename;
     }
 
     /**
      * @return string
      */
     public function getSrcClassname() {
-        // TODO: Implement getSrcClassname() method.
+        return $this->getName();
     }
 
     /**
      * @return string
      */
     public function getSpecFilename() {
-        // TODO: Implement getSpecFilename() method.
+        return $this->getSpecName() . $this->fileSuffix;
     }
 
     /**
      * @return string
      */
     public function getSpecClassname() {
-        // TODO: Implement getSpecClassname() method.
+        return $this->getSpecName();
     }
 
     /**
@@ -68,4 +71,5 @@ class SimpleResource implements ResourceInterface {
     public function getSpecNamespace() {
         return '';
     }
+
 }
