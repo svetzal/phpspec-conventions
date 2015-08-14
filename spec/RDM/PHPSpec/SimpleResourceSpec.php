@@ -31,5 +31,6 @@ class SimpleResourceSpec extends ObjectBehavior
         $this->beConstructedWith("RDM/Namespace/MyFeature.class.php");
         $this->getSrcNamespace()->shouldBe("RDM\\Namespace");
         $this->getName()->shouldBe("RDM\\Namespace\\MyFeature");
+        $this->getSrcClassName()->shouldBe("RDM\\Namespace\\MyFeature");
     }
 }
