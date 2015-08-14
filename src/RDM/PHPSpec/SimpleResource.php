@@ -28,23 +28,23 @@ class SimpleResource implements ResourceInterface {
     }
 
     public function getSpecName() {
-        return $this->name . $this->specSuffix;
+        return $this->addNamespaceTo($this->name . $this->specSuffix);
     }
 
     public function getSrcFilename() {
-        return $this->addFullSuffixTo($this->name);
-    }
-
-    public function getSrcClassname() {
-        return $this->getName();
+        return $this->path . $this->addFullSuffixTo($this->name);
     }
 
     public function getSpecFilename() {
-        return $this->addFullSuffixTo($this->getSpecName());
+        return $this->path . $this->addFullSuffixTo($this->name . $this->specSuffix);
+    }
+
+    public function getSrcClassname() {
+        return $this->name;
     }
 
     public function getSpecClassname() {
-        return $this->getSpecName();
+        return $this->name . $this->specSuffix;
     }
 
     public function getSrcNamespace() {
