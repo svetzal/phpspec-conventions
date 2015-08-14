@@ -22,7 +22,14 @@ class SimpleResourceSpec extends ObjectBehavior
         $this->beConstructedWith("MyFeature.class.php");
         $this->getName()->shouldBe("MyFeature");
         $this->getSrcClassname()->shouldBe("MyFeature");
+        $this->getSpecNamespace()->shouldBe("");
         $this->getSpecName()->shouldBe("MyFeatureSpec");
         $this->getSpecFilename()->shouldBe("MyFeatureSpec.class.php");
+    }
+
+    function it_extracts_the_right_parts_for_a_complex_path() {
+        $this->beConstructedWith("RDM/Namespace/MyFeature.class.php");
+        $this->getSrcNamespace()->shouldBe("RDM\\Namespace");
+        $this->getName()->shouldBe("RDM\\Namespace\\MyFeature");
     }
 }

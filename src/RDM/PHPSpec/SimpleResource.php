@@ -6,70 +6,65 @@ use PhpSpec\Locator\ResourceInterface;
 
 class SimpleResource implements ResourceInterface {
 
-    private $name, $srcFilename;
+    private $name, $type, $path, $namespace;
+
+    private $specSuffix = "Spec";
+    private $ext = 'php';
+    private $namespaceJoin = '\\';
+    private $typeJoin = '.';
+    private $extJoin = '.';
 
     public function __construct($path) {
-        $this->srcFilename = $path;
         $matches = array();
-        preg_match("/^(\\w+)(.+)$/", $path, $matches);
-        $this->name = $matches[1];
-        $this->fileSuffix = $matches[2];
+        preg_match('/^(.*\/)*(\w+)\.(.+)\.php/', $path, $matches);
+        $this->path = $matches[1];
+        $this->namespace = str_replace('/', "\\", rtrim($matches[1], '/'));
+        $this->name = $matches[2];
+        $this->type = $matches[3];
      }
 
-    /**
-     * @return string
-     */
     public function getName() {
-        return $this->name;
+        return $this->addNamespaceTo($this->name);
     }
 
-    /**
-     * @return string
-     */
     public function getSpecName() {
-        return $this->name . "Spec";
+        return $this->name . $this->specSuffix;
     }
 
-    /**
-     * @return string
-     */
     public function getSrcFilename() {
-        return $this->srcFilename;
+        return $this->addFullSuffixTo($this->name);
     }
 
-    /**
-     * @return string
-     */
     public function getSrcClassname() {
         return $this->getName();
     }
 
-    /**
-     * @return string
-     */
     public function getSpecFilename() {
-        return $this->getSpecName() . $this->fileSuffix;
+        return $this->addFullSuffixTo($this->getSpecName());
     }
 
-    /**
-     * @return string
-     */
     public function getSpecClassname() {
         return $this->getSpecName();
     }
 
-    /**
-     * @return string
-     */
     public function getSrcNamespace() {
-        return '';
+        return $this->namespace;
     }
 
-    /**
-     * @return string
-     */
     public function getSpecNamespace() {
-        return '';
+        return $this->namespace;
+    }
+
+    private function addNamespaceTo($input) {
+        $prefix = '';
+        if ($this->namespace) {
+            $prefix .= $this->namespace . $this->namespaceJoin;
+        }
+        return $prefix . $input;
+    }
+
+    private function addFullSuffixTo($input) {
+        return $input . $this->typeJoin . $this->type . $this->extJoin . $this->ext;
     }
 
 }

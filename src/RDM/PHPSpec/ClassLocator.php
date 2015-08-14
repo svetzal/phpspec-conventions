@@ -13,9 +13,10 @@ class ClassLocator implements ResourceLocatorInterface {
      */
     public function getAllResources() {
         // TODO: Implement getAllResources() method.
-        $result = glob("**/*.php");
-        print_r($result);
-//        return array();
+        $result = array();
+        foreach(glob("**/*.php") as $path) {
+            array_push($result, new SimpleResource($path));
+        }
         return $result;
     }
 
