@@ -42,16 +42,17 @@ class Extension implements ExtensionInterface {
         $container->addConfigurator(function($c) {
             $suites = $c->getParam('suites');
             foreach($suites as $suite => $config) {
-                $srcPath = array_key_exists('src_path', $config) ? $config['src_path'] : 'src';
-                $specPath = array_key_exists('spec_path', $config) ? $config['spec_path'] : '.';
-                $srcNamespace = array_key_exists('namespace', $config) ? $config['namespace'] : '';
-                $specNamespacePrefix = array_key_exists('spec_prefix', $config) ? $config['spec_prefix'] : 'spec';
-                $psr4Prefix = array_key_exists('psr4_prefix', $config) ? $config['psr4_prefix'] : null;
-                $extension = array_key_exists('src_extension', $config) ? $config['src_extension'] : '.php';
+                // Not keen on how we have to track these config directives...
+                $srcPath = $this->configParamOrDefault('src_path', $config, 'src');
+                $specPath = $this->configParamOrDefault('spec_path', $config, '.');
+                $srcNamespace = $this->configParamOrDefault('namespace', $config, '');
+                $specNamespacePrefix = $this->configParamOrDefault('spec_prefix', $config, 'spec');
+                $psr4Prefix = $this->configParamOrDefault('psr4_prefix', $config, null);
+                $extension = $this->configParamOrDefault('src_extension', $config, '.php');
 
                 $c->setShared('locator.locators.rdm.class_locator_'.$suite,
                     function($c) use ($srcNamespace, $specNamespacePrefix, $srcPath, $specPath, $psr4Prefix, $extension) {
-                        $l = new ClassLocator($srcNamespace, $specNamespacePrefix, $srcPath, $specPath, null, $psr4Prefix, $extension);
+                        $l = new SuffixablePSR0Locator($srcNamespace, $specNamespacePrefix, $srcPath, $specPath, null, $psr4Prefix, $extension);
                         return $l;
                     }
                 );
@@ -63,6 +64,10 @@ class Extension implements ExtensionInterface {
                 $c->getByPrefix('locator.locators.rdm')
             );
         });
+    }
+
+    private function configParamOrDefault($param, $config, $default) {
+        return array_key_exists($param, $config) ? $config[$param] : $default;
     }
 
 }
