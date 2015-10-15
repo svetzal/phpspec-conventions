@@ -3,15 +3,15 @@
 namespace RDM\CustomSuffix;
 
 use PhpSpec\Locator\PSR0\PSR0Locator;
-use PhpSpec\Locator\PSR0\PSR0Resource;
-use PhpSpec\Locator\ResourceInterface;
-use PhpSpec\Locator\ResourceLocatorInterface;
 use PhpSpec\Util\Filesystem;
 
+// TODO: Not the best name for this class, struggling to think of a better one.
 class ClassLocator extends PSR0Locator {
 
     private $extension;
 
+    // We need to be able to specify an alternate extension for class filenames,
+    // so for now I've tacked this onto the constructor.
     public function __construct(
         $srcNamespace = '',
         $specNamespacePrefix = 'spec',
@@ -25,7 +25,10 @@ class ClassLocator extends PSR0Locator {
         $this->extension = $extension;
     }
 
-    # Override parent method
+    // I've had to override createResource and duplicate the code that's in there
+    // because there's no Factory style approach to Resource object construction.
+    // Changes have been made to the duplicated code in order to access private fields
+    // through the existing accessor functions (specNamespace, srcNamespace, etc).
     public function createResource($classname) {
         $resource = null;
 
@@ -44,6 +47,8 @@ class ClassLocator extends PSR0Locator {
         return $resource;
     }
 
+    // createResource depends on this function, that's an exact duplicate of the
+    // same method in the base class, which is unfortunately marked private.
     private function validatePsr0Classname($classname) {
         $pattern = '/^([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*[\/\\\\]?)*[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/';
 

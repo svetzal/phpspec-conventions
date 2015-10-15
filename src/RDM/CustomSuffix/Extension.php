@@ -2,8 +2,8 @@
 
 namespace RDM\CustomSuffix;
 
-use \PhpSpec\ServiceContainer;
-use \PhpSpec\Extension\ExtensionInterface;
+use PhpSpec\Extension\ExtensionInterface;
+use PhpSpec\ServiceContainer;
 
 class Extension implements ExtensionInterface {
 
@@ -12,7 +12,13 @@ class Extension implements ExtensionInterface {
         $this->setupLocators($container);
     }
 
-    private function setupAutoloaders($container) {
+    /**
+     * Adds autoloaders that can handle the class name extensions specified in each
+     * phpspec suite.
+     *
+     * @param $container
+     */
+    private function setupAutoloaders(ServiceContainer $container) {
         $suites = $container->getParam('suites');
         foreach($suites as $suite => $config) {
             $srcPath = array_key_exists('src_path', $config) ? $config['src_path'] : 'src';
@@ -26,7 +32,13 @@ class Extension implements ExtensionInterface {
         }
     }
 
-    private function setupLocators(\PhpSpec\ServiceContainer $container) {
+    /**
+     * Set up Locator services for each phpspec suite configured, which may have
+     * different class filename extensions.
+     *
+     * @param ServiceContainer $container
+     */
+    private function setupLocators(ServiceContainer $container) {
         $container->addConfigurator(function($c) {
             $suites = $c->getParam('suites');
             foreach($suites as $suite => $config) {
