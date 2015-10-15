@@ -9,8 +9,8 @@ And, disruptive change to an untested code-base is bad, yeah?
 
 Within the PHP community, different conventions have been used over the years for filenames.
 Different communities have different opinions on PHP class file naming conventions, for better
-or worse. Some communities use suffixes like *.class.php, some use *.inc.php, some even use
-prefixes like class-*.php (although this plugin doesn't support prefixes at this time).
+or worse. Some communities use suffixes like `*.class.php`, some use `*.inc.php`, some even use
+prefixes like `class-*.php` (although this plugin doesn't support prefixes at this time).
 
 In order to add a little flexibility to PHPSpec, this plugin allows you to specify on a
 suite-by-suite basis different filename suffix/extension conventions.
