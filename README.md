@@ -1,6 +1,6 @@
 # rdm-phpspec-customsuffix
 
-PHPSpec is a highly opinionated tool, and is hard-coded to deal with class files that have only
+PHPSpec is a highly opinionated tool, and is hard-coded to deal with class files that use only
 the .php filename extension. While this may be a good practice, it keeps people from adopting
 it as a test framework if their existing code-base doesn't exactly follow it's recommended
 practices, without a tremendous amount of disruptive change.
