@@ -8,6 +8,8 @@ use RDM\CustomSuffix\SuffixablePSR0Locator;
 
 class SuffixablePSR0ResourceSpec extends ObjectBehavior {
     function let(SuffixablePSR0Locator $locator) {
+        $locator->getSrcNamespace()->willReturn('');
+        $locator->getFullSrcPath()->willReturn('');
         $this->beConstructedWith(['My', 'Class'], $locator, '.class.php');
     }
 
@@ -15,7 +17,7 @@ class SuffixablePSR0ResourceSpec extends ObjectBehavior {
         $this->shouldHaveType('RDM\CustomSuffix\SuffixablePSR0Resource');
     }
 
-//    function it_should_generate_correct_suffix() {
-//        echo $this->getSrcFilename();
-//    }
+    function it_should_generate_correct_suffix() {
+        $this->getSrcFilename()->shouldMatch('/.class.php$/');
+    }
 }
