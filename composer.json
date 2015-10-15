@@ -1,6 +1,6 @@
 {
-  "name": "rdm/phpspec-conventions",
-  "description": "PHPSpec extension to locate files correctly using conventions",
+  "name": "rdm/phpspec-customsuffix",
+  "description": "PHPSpec extension to allow custom class file suffixes ie. MyClass.class.php",
   "minimum-stability": "beta",
   "license": "MIT",
   "authors": [
